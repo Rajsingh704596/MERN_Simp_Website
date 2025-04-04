@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 
-const router = require("./routes/auth-router");
+const router = require("./router/auth-router");
 
 //middleware  and  Mount the router a specific url
 app.use("/api/auth", router);
