@@ -3,7 +3,10 @@ const app = express();
 
 const router = require("./router/auth-router");
 
-//middleware  and  Mount the router a specific url
+//middleware that parsing JSON data from incoming request. (must use at the beginning before any routes)
+app.use(express.json());
+
+//middleware that Mount the router a specific url
 app.use("/api/auth", router);
 
 app.get("/", (req, res) => {
