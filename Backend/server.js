@@ -2,6 +2,8 @@ const express = require("express");
 const app = express();
 
 const router = require("./router/auth-router");
+const connectDb = require("./utils/db");
+require("dotenv").config();
 
 //middleware that parsing JSON data from incoming request. (must use at the beginning before any routes)
 app.use(express.json());
@@ -14,6 +16,8 @@ app.get("/", (req, res) => {
 });
 
 const Port = 5000;
+
+connectDb();
 
 app.listen(Port, () => {
   console.log(`server running at Port ${Port}`);
