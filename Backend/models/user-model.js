@@ -32,7 +32,12 @@ userSchema.pre("save", async function () {
   }
 });
 
-//^ json web token instance method create   -       (userSchema.methods - it's method use to create many instance of method(fun) )
+//^ Compare the password in instance methods(fun)
+userSchema.methods.comparePassword = async function (password) {
+  return bcrypt.compare(password, this.password); //  here compare db password , userType pass which get using this
+};
+
+//^ json web token instance methods create   -       (userSchema.methods - it's method use to create many instance of method(fun) )
 // and we access this part in controller
 userSchema.methods.generateToken = async function () {
   try {

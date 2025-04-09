@@ -1,7 +1,7 @@
 // Controller- here handling the application logic , Controllers are typically used to process incoming requests(from routers), interact with models (data sources), and send response back to clients. [MVC pattern]
 
 const User = require("../models/user-model");
-const bcrypt = require("bcryptjs");
+// const bcrypt = require("bcryptjs");
 
 //Home logic
 
@@ -66,7 +66,10 @@ const login = async (req, res) => {
     }
 
     //else(means email exist user exist , so compare password (db password , user type password) using bcrypt)
-    const user = await bcrypt.compare(password, userExist.password);
+    // const user = await bcrypt.compare(password, userExist.password);
+
+    //custom compare password check fun create
+    const user = await userExist.comparePassword(password); // fun comparePassword call and user type password pass ,  fun define in model
 
     // password match means user exist so condition true , and login successful and pass jwt
     if (user) {
