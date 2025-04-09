@@ -1,7 +1,7 @@
 // Controller- here handling the application logic , Controllers are typically used to process incoming requests(from routers), interact with models (data sources), and send response back to clients. [MVC pattern]
 
 const User = require("../models/user-model");
-// const bcrypt = require("bcryptjs");
+const bcrypt = require("bcryptjs");
 
 //Home logic
 
@@ -13,7 +13,7 @@ const home = async (req, res) => {
   }
 };
 
-//Registration logic
+//user Registration logic
 
 const register = async (req, res) => {
   try {
@@ -50,4 +50,37 @@ const register = async (req, res) => {
     res.status(400).json({ msg: "internal server error" });
   }
 };
-module.exports = { home, register };
+
+// User Login logic
+
+const login = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    // check email is exist or not
+    const userExist = await User.findOne({ email });
+
+    //if email not exist (means user not Exist)
+    if (!userExist) {
+      return res.status(400).json({ message: "Invalid Credential" });
+    }
+
+    //else(means email exist user exist , so compare password (db password , user type password) using bcrypt)
+    const user = await bcrypt.compare(password, userExist.password);
+
+    // password match means user exist so condition true , and login successful and pass jwt
+    if (user) {
+      res.status(200).json({
+        msg: "Login Successful",
+        token: await userExist.generateToken(),
+        userId: userExist._id.toString(),
+      });
+    } else {
+      res.status(401).json({ message: "Invalid email or password" });
+    }
+  } catch (error) {
+    res.status(500).json("internal server error");
+  }
+};
+
+module.exports = { home, register, login };
