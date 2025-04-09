@@ -27,7 +27,7 @@ const register = async (req, res) => {
       return res.status(400).json({ msg: "email already exist" });
     }
 
-    //^ hash password using bcryptjs (npm package)        - we have 2 option either we use here or use schema where mongoose give pre-method
+    //^ hash password using bcryptjs (npm package)        - we have 2 option either we use here or use schema(model) where mongoose give pre-method
     // const saltRound = 10;
     // const hash_password = await bcrypt.hash(password, saltRound);
 
@@ -40,7 +40,12 @@ const register = async (req, res) => {
       password,
     });
 
-    res.status(201).json({ message: userCreated });
+    res.status(201).json({
+      // now here we pass (jwt) token , userId to the client side
+      message: "registration successful",
+      token: await userCreated.generateToken(),
+      userId: userCreated._id.toString(), // id convert into string for compatibility ( we know it's object form and we store Jwt in clint side so must convert into string)
+    });
   } catch (error) {
     res.status(400).json({ msg: "internal server error" });
   }
