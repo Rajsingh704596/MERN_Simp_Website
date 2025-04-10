@@ -43,7 +43,7 @@ const register = async (req, res) => {
     res.status(201).json({
       // now here we pass (jwt) token , userId to the client side
       message: "registration successful",
-      token: await userCreated.generateToken(),
+      token: await userCreated.generateToken(), // fun call
       userId: userCreated._id.toString(), // id convert into string for compatibility ( we know it's object form and we store Jwt in clint side so must convert into string)
     });
   } catch (error) {
@@ -82,7 +82,8 @@ const login = async (req, res) => {
       res.status(401).json({ message: "Invalid email or password" });
     }
   } catch (error) {
-    res.status(500).json("internal server error");
+    // res.status(500).json("internal server error");            // here direct error pass to client
+    next(error); // error pass to error-middleware
   }
 };
 
