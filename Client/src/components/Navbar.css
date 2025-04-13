@@ -1,0 +1,15 @@
+.container {
+  max-width: 80rem;
+  padding: 2rem 2.5rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+ul {
+  display: flex;
+  gap: 3.2rem;
+}
+
+.logo-brand {
+  font-size: x-large;
+}
