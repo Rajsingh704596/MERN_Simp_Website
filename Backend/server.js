@@ -7,6 +7,17 @@ const connectDb = require("./utils/db");
 const errorMiddleware = require("./middleware/error-middleware");
 require("dotenv").config();
 
+//handling cors policy issue
+const cors = require("cors");
+
+// configure cors
+const corsOptions = {
+  origin: "http://localhost:5173", //req. from this origin will be accept by server
+  methods: "GET , POST, PUT, DELETE, PATCH, HEAD",
+  credentials: true,
+};
+app.use(cors(corsOptions));
+
 //middleware that parsing JSON data from incoming request. (must use at the beginning before any routes)
 app.use(express.json());
 
