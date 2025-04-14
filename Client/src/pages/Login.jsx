@@ -44,6 +44,7 @@ const Login = () => {
         // now we can store the token in local storage or session storage or cookies , here we store in Local storage
         storeJWTinLS(res_data.token); //fun call and pass Json web token
 
+        alert("login successful");
         setUserLog({ email: "", password: "" });
 
         navigate("/");

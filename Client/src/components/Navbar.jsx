@@ -1,7 +1,10 @@
+import { useAuth } from "../store/auth";
 import "./Navbar.css";
 import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
+  const { isLoggedIn } = useAuth(); // custom useContext hook
+
   return (
     <header>
       <div className="container">
@@ -21,12 +24,21 @@ const Navbar = () => {
           <NavLink to="/contact">
             <li>Contact</li>
           </NavLink>
-          <NavLink to="/login">
-            <li>Login</li>
-          </NavLink>
-          <NavLink to="/register">
-            <li>Register</li>
-          </NavLink>
+          {/* Ternary operator use to check if isLoggedIn true so show Logout link otherwise show Login and register link */}
+          {isLoggedIn ? (
+            <NavLink to="/logout">
+              <li>logout</li>
+            </NavLink>
+          ) : (
+            <>
+              <NavLink to="/register">
+                <li>Register</li>
+              </NavLink>
+              <NavLink to="/login">
+                <li>Login</li>
+              </NavLink>
+            </>
+          )}
         </ul>
       </div>
     </header>
