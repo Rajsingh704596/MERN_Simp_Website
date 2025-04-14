@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../store/auth";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -9,6 +10,7 @@ const Register = () => {
     phone: "",
     password: "",
   });
+  const { storeJWTinLS } = useAuth(); // fun get from useContext custom hook
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -29,9 +31,18 @@ const Register = () => {
         },
         body: JSON.stringify(userReg), // state data pass in JSON.stringify format in body
       });
-      console.log("after registration get response from server", response);
+      console.log(
+        "after registration API hit, get response from server",
+        response
+      );
 
       if (response.ok) {
+        const res_data = await response.json();
+        console.log(
+          "data get from server when registration successfully",
+          res_data
+        );
+        storeJWTinLS(res_data.token); // fun call and json web token pass (for store in local storage)
         setUserReg({ username: "", email: "", phone: "", password: "" });
         navigate("/login");
       }

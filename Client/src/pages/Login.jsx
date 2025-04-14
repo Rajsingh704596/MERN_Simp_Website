@@ -1,12 +1,19 @@
-import React from "react";
-
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../store/auth";
+
+const URL = "http://localhost:5000/api/auth/login";
 
 const Login = () => {
   const [userLog, setUserLog] = useState({
     email: "",
     password: "",
   });
+
+  const navigate = useNavigate();
+
+  // fun get from useContext custom hook
+  const { storeJWTinLS } = useAuth();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -19,7 +26,7 @@ const Login = () => {
     console.log(userLog);
 
     try {
-      const response = await fetch("http://localhost:5000/api/auth/login", {
+      const response = await fetch(URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -28,10 +35,25 @@ const Login = () => {
       });
       // console.log("after login response", response);
       if (response.ok) {
+        const res_data = await response.json();
+        console.log(
+          "response from server changed in json formate so we get data(token)",
+          res_data
+        );
+
+        // now we can store the token in local storage or session storage or cookies , here we store in Local storage
+        storeJWTinLS(res_data.token); //fun call and pass Json web token
+
         setUserLog({ email: "", password: "" });
+
+        navigate("/");
+      } else {
+        console.log("invalid credential");
+        alert("invalid credential");
       }
     } catch (error) {
       console.log("Login error", error);
+      alert("Login error");
     }
   };
 
