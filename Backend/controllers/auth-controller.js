@@ -87,4 +87,15 @@ const login = async (req, res) => {
   }
 };
 
-module.exports = { home, register, login };
+// after login User data get logic (to send user data )
+const user = async (req, res) => {
+  try {
+    const userData = req.user; // here req.user have user data which we get from auth-middleware
+    console.log(userData);
+    return res.status(200).json({ msg: userData }); // pass userData to frontend
+  } catch (error) {
+    console.log(`error from the user route ${error}`);
+  }
+};
+
+module.exports = { home, register, login, user };
