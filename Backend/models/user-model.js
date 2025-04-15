@@ -42,7 +42,7 @@ userSchema.methods.comparePassword = async function (password) {
 userSchema.methods.generateToken = async function () {
   try {
     return jwt.sign(
-      //for token create - jwt.sign use
+      // Json web token create using jwt.sign
       {
         //payload pass
         userId: this._id.toString(), // id convert into string and pass

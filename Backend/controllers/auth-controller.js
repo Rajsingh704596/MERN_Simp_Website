@@ -87,12 +87,13 @@ const login = async (req, res) => {
   }
 };
 
-// after login User data get logic (to send user data )
+// User logic - to send user data to clientSide
+
 const user = async (req, res) => {
   try {
-    const userData = req.user; // here req.user have user data which we get from auth-middleware
-    console.log(userData);
-    return res.status(200).json({ msg: userData }); // pass userData to frontend
+    const userData = req.user; // here req.user is custom req which define in auth-middleware.js and it contains userData
+    console.log("after jwt verification", userData);
+    return res.status(200).json({ msg: userData }); // response userData pass to client
   } catch (error) {
     console.log(`error from the user route ${error}`);
   }
