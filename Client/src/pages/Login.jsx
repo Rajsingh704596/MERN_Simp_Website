@@ -31,11 +31,11 @@ const Login = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(userLog),
+        body: JSON.stringify(userLog), // JavaScript Obj. to JSON string convert and send data to backend
       });
       // console.log("after login response", response);
       if (response.ok) {
-        const res_data = await response.json();
+        const res_data = await response.json(); // response convert into JSON obj form
         console.log(
           "response from server changed in json formate so we get data(token)",
           res_data

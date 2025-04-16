@@ -1,11 +1,26 @@
 import { useState } from "react";
+import { useAuth } from "../store/auth";
 
 const Contact = () => {
   const [userDtl, setUserDtl] = useState({
+    //contact form data store
     username: "",
     email: "",
     message: "",
   });
+
+  const [userData, setUserData] = useState(true); //default it's true
+  const { user } = useAuth(); // custom useContext hook user data get
+  if (userData && user) {
+    setUserDtl({
+      //^ when both condition true Auto fill contact Fields with User Data from the database
+      username: user.username,
+      email: user.email,
+      message: "",
+    });
+
+    setUserData(false); // condition false , so it will run only first time
+  }
 
   const handleChange = (e) => {
     const { name, value } = e.target;

@@ -44,7 +44,8 @@ const Register = () => {
         );
         storeJWTinLS(res_data.token); // fun call and json web token pass (for store in local storage)
         setUserReg({ username: "", email: "", phone: "", password: "" });
-        navigate("/login");
+        // navigate("/login");
+        navigate("/"); // after register direct show home page
       }
     } catch (error) {
       console.log("registration error", error);

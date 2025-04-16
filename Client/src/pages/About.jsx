@@ -1,7 +1,18 @@
+import { useAuth } from "../store/auth";
+
 const About = () => {
+  const { user } = useAuth();
   return (
     <section className="section-hero">
+      {user ? (
+        <p>Welcome to our website, {user.username}</p>
+      ) : (
+        <p>Please login to see personalized content</p>
+      )}
+      <br />
+
       <h1>Why choose Us ?</h1>
+
       <div>
         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odit
         dignissimos rem impedit, architecto, voluptates perspiciatis ducimus
