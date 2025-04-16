@@ -3,6 +3,7 @@ const app = express();
 
 const authRoute = require("./router/auth-router");
 const contactRoute = require("./router/contact-router");
+const serviceRoute = require("./router/service-router");
 const connectDb = require("./utils/db");
 const errorMiddleware = require("./middleware/error-middleware");
 require("dotenv").config();
@@ -24,6 +25,7 @@ app.use(express.json());
 //middleware that Mount the router a specific url
 app.use("/api/auth", authRoute);
 app.use("/api/form", contactRoute);
+app.use("/api/data", serviceRoute);
 
 // app.get("/", (req, res) => {
 //   res.status(200).send("hello");

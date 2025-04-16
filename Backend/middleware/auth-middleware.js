@@ -5,7 +5,7 @@ const User = require("../models/user-model");
 
 // it's middleware , that's we use next
 const authMiddleware = async (req, res, next) => {
-  const token = req.header("Authorization");
+  const token = req.header("Authorization"); // req.header we get token when get req. api call by frontend for getting user data it pass Authorization key and value is Bearer jwtToken (In Postman we can check it get api call and pass token in headers)
 
   if (!token) {
     //if token is not valid or if you attempt to use an expired token, you'll receive a "401 Unauthorized HTTP response"
