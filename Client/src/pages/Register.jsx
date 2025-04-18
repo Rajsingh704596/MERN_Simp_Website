@@ -31,21 +31,21 @@ const Register = () => {
         },
         body: JSON.stringify(userReg), // state data pass in JSON.stringify format in body
       });
-      console.log(
-        "after registration API hit, get response from server",
-        response
-      );
+      // console.log(
+      //   "after registration API hit, get response from server",
+      //   response
+      // );
 
+      const res_data = await response.json();
+      console.log("after json object change response from server", res_data);
       if (response.ok) {
-        const res_data = await response.json();
-        console.log(
-          "data get from server when registration successfully",
-          res_data
-        );
+        // stored the token in localhost
         storeJWTinLS(res_data.token); // fun call and json web token pass (for store in local storage)
         setUserReg({ username: "", email: "", phone: "", password: "" });
         // navigate("/login");
         navigate("/"); // after register direct show home page
+      } else {
+        alert(res_data.extraDetails ? res_data.extraDetails : res_data.message); //form validation error show in UI which we get from backend zod validation response
       }
     } catch (error) {
       console.log("registration error", error);
