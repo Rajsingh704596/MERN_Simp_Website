@@ -19,19 +19,28 @@ const Home = () => {
 
               <div className="child">
                 <NavLink to="/contact">
-                  <button>Connect Now</button>
+                  <button aria-label="Connect now and fill contact page">
+                    {/* aria provide extra context for screen reader */}
+                    Connect Now
+                  </button>
                 </NavLink>
                 <NavLink to="/service">
-                  <button className="sec-btn">Learn More</button>
+                  <button
+                    className="sec-btn"
+                    aria-label="Learn more about our service"
+                  >
+                    Learn More
+                  </button>
                 </NavLink>
               </div>
             </div>
           </div>
 
           {/* hero image */}
-          <div className="hero-image">
+          <figure className="hero-image">
             <img src="/image.jpg" alt="hero image" width="400" height="400" />
-          </div>
+            <figcaption>Developer Image</figcaption>
+          </figure>
         </div>
       </main>
       {/* 2nd Section */}

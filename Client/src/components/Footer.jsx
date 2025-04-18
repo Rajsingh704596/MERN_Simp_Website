@@ -1,6 +1,10 @@
 const Footer = () => {
   const year = new Date().getFullYear();
-  return <div className="footer">&copy; {year} | All rights Reserved.</div>;
+  return (
+    <footer>
+      <p className="footer">&copy; {year} | All rights Reserved.</p>
+    </footer>
+  );
 };
 
 export default Footer;

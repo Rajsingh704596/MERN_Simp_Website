@@ -2,55 +2,73 @@ import { useAuth } from "../store/auth";
 
 const About = () => {
   const { user } = useAuth();
+
   return (
-    <section className="section-hero">
-      {user ? (
-        <p>Welcome to our website, {user.username}</p>
-      ) : (
-        <p>Please login to see personalized content</p>
-      )}
-      <br />
+    <section className="about-section container">
+      <main className="main-section">
+        {user ? (
+          <h2 className="welcome-message">Welcome back, {user.username} 🙏</h2>
+        ) : (
+          <p className="login-prompt">
+            *Please login to access personalized features
+          </p>
+        )}
 
-      <h1>Why choose Us ?</h1>
+        <div>
+          <h1 className="main-heading">Why Choose Our Platform?</h1>
+        </div>
+      </main>
 
-      <div>
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odit
-        dignissimos rem impedit, architecto, voluptates perspiciatis ducimus
-        magnam et assumenda dolorem numquam eaque. Iure neque dolores adipisci
-        dolorem illo odio corrupti!
-      </div>
-      <div>
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tenetur
-        ratione, incidunt dolor nihil illum debitis est deleniti voluptas
-        excepturi dolores nemo magnam rerum neque voluptates laborum at nesciunt
-        tempora nulla voluptate fuga culpa sed maiores? Laborum nobis corporis a
-        aliquid accusamus, pariatur natus impedit ipsam iste, deleniti maiores
-        quam cumque?
-      </div>
-      <br />
-      <div>
-        <ul>
-          <li>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-            Cupiditate, aliquam.
-          </li>
-          <li>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-            Cupiditate, aliquam.
-          </li>
-          <li>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-            Cupiditate, aliquam.
-          </li>
-          <li>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-            Cupiditate, aliquam.
-          </li>
-          <li>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-            Cupiditate, aliquam.
-          </li>
-        </ul>
+      <div className="about-content">
+        <div className="about-text">
+          <p>
+            We are dedicated to providing the best user experience with
+            cutting-edge technology and personalized services. Our platform is
+            built with security, performance, and user satisfaction in mind.
+          </p>
+
+          <p>
+            Since our founding in 2020, we've helped thousands of users achieve
+            their goals through our innovative solutions. Our team of experts
+            works tirelessly to ensure our platform meets the highest standards
+            of quality and reliability.
+          </p>
+        </div>
+
+        <article className="features">
+          <h2>Key Features:</h2>
+          <ul className="features-list">
+            <li>
+              <strong>Secure Authentication:</strong> Industry-standard security
+              to protect your data
+            </li>
+            <li>
+              <strong>24/7 Support:</strong> Our team is always ready to assist
+              you
+            </li>
+            <li>
+              <strong>Regular Updates:</strong> Continuous improvements and new
+              features
+            </li>
+            <li>
+              <strong>User-Friendly Interface:</strong> Intuitive design for
+              seamless navigation
+            </li>
+            <li>
+              <strong>Cross-Platform Compatibility:</strong> Access from any
+              device, anywhere
+            </li>
+          </ul>
+        </article>
+
+        <div className="mission">
+          <h3>Our Mission</h3>
+          <p>
+            To empower individuals and businesses through technology that
+            simplifies complex tasks, enhances productivity, and connects people
+            with the resources they need to succeed.
+          </p>
+        </div>
       </div>
     </section>
   );

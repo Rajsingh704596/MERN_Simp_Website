@@ -6,6 +6,7 @@ export const AuthProvider = ({ children }) => {
   //state variable create to get token from localstorage which name is token
   const [token, setToken] = useState(localStorage.getItem("token")); // store jwt token
   const [user, setUser] = useState(null); // store user data after jwt verification
+  const [service, setService] = useState([]); // store services data
 
   //fun that used to store Json web token in local storage (when login or register)
   const storeJWTinLS = (serverToken) => {
@@ -50,13 +51,31 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  // fun for fetch the services data from the database
+  const getServicesDataReq = async () => {
+    try {
+      const res = await fetch("http://localhost:5000/api/data/service", {
+        method: "GET",
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        console.log(data);
+        setService(data.msg);
+      }
+    } catch (error) {
+      console.error(`services frontend error:${error}`);
+    }
+  };
+
   useEffect(() => {
+    getServicesDataReq();
     userAuthentication(); // fun call
   }, [token]);
 
   return (
     <AuthContext.Provider
-      value={{ storeJWTinLS, LogoutUser, isLoggedIn, user }}
+      value={{ storeJWTinLS, LogoutUser, isLoggedIn, user, service }}
     >
       {children}
     </AuthContext.Provider>
