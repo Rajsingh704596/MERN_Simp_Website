@@ -34,8 +34,8 @@ const Login = () => {
         body: JSON.stringify(userLog), // JavaScript Obj. to JSON string convert and send data to backend
       });
       // console.log("after login response", response);
+      const res_data = await response.json(); // response convert into JSON obj form
       if (response.ok) {
-        const res_data = await response.json(); // response convert into JSON obj form
         console.log(
           "response from server changed in json formate so we get data(token)",
           res_data
@@ -50,7 +50,7 @@ const Login = () => {
         navigate("/");
       } else {
         console.log("invalid credential");
-        alert("invalid credential");
+        alert(res_data.extraDetails ? res_data.extraDetails : res_data.message);
       }
     } catch (error) {
       console.log("Login error", error);

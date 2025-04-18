@@ -24,7 +24,7 @@ const register = async (req, res) => {
     const userExist = await User.findOne({ email: email }); // here email pass and check it's exist or not
 
     if (userExist) {
-      return res.status(400).json({ msg: "email already exist" });
+      return res.status(400).json({ message: "email already exist" }); //message pass to client
     }
 
     //^ hash password using bcryptjs (npm package)        - we have 2 option either we use here or use schema(model) where mongoose give pre-method
@@ -47,7 +47,9 @@ const register = async (req, res) => {
       userId: userCreated._id.toString(), // id convert into string for compatibility ( we know it's object form and we store Jwt in clint side so must convert into string)
     });
   } catch (error) {
-    res.status(400).json({ msg: "internal server error" });
+    // res.status(500).json({ msg: "internal server error" });
+    console.log(req.body);
+    next(error);
   }
 };
 
