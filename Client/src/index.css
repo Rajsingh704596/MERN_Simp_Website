@@ -343,3 +343,14 @@ a:active {
   flex-direction: column;
   align-items: center;
 }
+
+/*React Toastify ke close button ko fix karne ke liye  */
+.Toastify__close-button {
+  all: unset; /*global styling hata dega.*/
+  cursor: pointer;
+  font-size: 1.2rem; /* ya jitna required ho */
+  margin: 0;
+  padding: 0;
+  width: auto;
+  height: auto;
+}

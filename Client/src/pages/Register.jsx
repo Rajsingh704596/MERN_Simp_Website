@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../store/auth";
+import { toast } from "react-toastify";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -42,13 +43,18 @@ const Register = () => {
         // stored the token in localhost
         storeJWTinLS(res_data.token); // fun call and json web token pass (for store in local storage)
         setUserReg({ username: "", email: "", phone: "", password: "" });
+        toast.success("Registration successfully");
         // navigate("/login");
         navigate("/"); // after register direct show home page
       } else {
-        alert(res_data.extraDetails ? res_data.extraDetails : res_data.message); //form validation error show in UI which we get from backend zod validation response
+        //alert(res_data.extraDetails ? res_data.extraDetails : res_data.message); //form validation error show in UI which we get from backend zod validation response
+        toast.warning(
+          res_data.extraDetails ? res_data.extraDetails : res_data.message
+        ); //form validation error show in UI which we get from backend zod validation response
       }
     } catch (error) {
       console.log("registration error", error);
+      toast.error("registration error", error);
     }
   };
 

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../store/auth";
+import { toast } from "react-toastify"; // toast work like alert
 
 const URL = "http://localhost:5000/api/auth/login";
 
@@ -44,17 +45,21 @@ const Login = () => {
         // now we can store the token in local storage or session storage or cookies , here we store in Local storage
         storeJWTinLS(res_data.token); //fun call and pass Json web token
 
-        alert("login successful");
+        // alert("login successful");
+        toast.success("login successful");
         setUserLog({ email: "", password: "" });
 
         navigate("/");
       } else {
         console.log("invalid credential");
-        alert(res_data.extraDetails ? res_data.extraDetails : res_data.message);
+        // alert(res_data.extraDetails ? res_data.extraDetails : res_data.message);
+        toast.warning(
+          res_data.extraDetails ? res_data.extraDetails : res_data.message
+        );
       }
     } catch (error) {
       console.log("Login error", error);
-      alert("Login error");
+      toast.error("Login error :", error);
     }
   };
 
