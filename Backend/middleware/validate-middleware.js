@@ -1,4 +1,4 @@
-//here schema is signup schema
+//! here schema is signup schema / Login schema of Zod validation
 const validate = (schema) => async (req, res, next) => {
   try {
     const parseBody = await schema.parseAsync(req.body); // .parseAsync method check user fill register data is match with schema(zod signup Schema) or not

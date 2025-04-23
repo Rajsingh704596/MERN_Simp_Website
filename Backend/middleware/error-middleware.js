@@ -10,3 +10,5 @@ const errorMiddleware = (err, req, res, next) => {
 };
 
 module.exports = errorMiddleware;
+
+//here zod validation register error pass to client

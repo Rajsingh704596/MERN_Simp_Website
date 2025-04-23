@@ -32,14 +32,15 @@ const Register = () => {
         },
         body: JSON.stringify(userReg), // state data pass in JSON.stringify format in body
       });
-      // console.log(
-      //   "after registration API hit, get response from server",
-      //   response
-      // );
+      // // console.log(
+      // //   "after registration API hit, get response from server",
+      // //   response
+      // // );
 
       const res_data = await response.json();
       console.log("after json object change response from server", res_data);
       if (response.ok) {
+        // stored the token in localhost
         // stored the token in localhost
         storeJWTinLS(res_data.token); // fun call and json web token pass (for store in local storage)
         setUserReg({ username: "", email: "", phone: "", password: "" });

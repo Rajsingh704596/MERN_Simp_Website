@@ -36,6 +36,7 @@ const Login = () => {
       });
       // console.log("after login response", response);
       const res_data = await response.json(); // response convert into JSON obj form
+
       if (response.ok) {
         console.log(
           "response from server changed in json formate so we get data(token)",
