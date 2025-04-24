@@ -8,6 +8,8 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null); // store user data after jwt verification
   const [service, setService] = useState([]); // store services data
 
+  const AuthorizationBearerToken = `Bearer ${token}`; // Bearer token store in variable so we use this variable here , also in consumer component(like admin panel) that jwt token pass from localstorage to backend for jwt verify also show user is login
+
   //fun that used to store Json web token in local storage (when login or register)
   const storeJWTinLS = (serverToken) => {
     setToken(serverToken); //after login / register token variable store that token  , so this component render again and isLoggedIn value true
@@ -36,7 +38,8 @@ export const AuthProvider = ({ children }) => {
       const response = await fetch("http://localhost:5000/api/auth/user", {
         method: "GET",
         headers: {
-          Authorization: `Bearer ${token}`, //token data pass to backend for verify
+          //  Authorization: `Bearer ${token}`, //token data pass to backend for verify
+          Authorization: AuthorizationBearerToken,
         },
       });
 
@@ -75,7 +78,14 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ storeJWTinLS, LogoutUser, isLoggedIn, user, service }}
+      value={{
+        storeJWTinLS,
+        LogoutUser,
+        isLoggedIn,
+        user,
+        service,
+        AuthorizationBearerToken,
+      }}
     >
       {children}
     </AuthContext.Provider>
