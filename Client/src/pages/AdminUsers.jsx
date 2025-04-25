@@ -24,6 +24,30 @@ const AdminUsers = () => {
     }
   };
 
+  // Delete the user by Id on Delete button
+  const handleDeleteUserById = async (id) => {
+    try {
+      const res = await fetch(
+        `http://localhost:5000/api/admin/users/delete/${id}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: AuthorizationBearerToken,
+          },
+        }
+      );
+
+      const data = await res.json();
+      console.log(`Users after delete: ${data}`);
+
+      if (res.ok) {
+        getAllUserData(); // for refresh the user data
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     getAllUserData();
   }, []);
@@ -47,7 +71,7 @@ const AdminUsers = () => {
           </thead>
           <tbody>
             {userData?.map((curElem, index) => {
-              const { username, email, phone } = curElem;
+              const { _id, username, email, phone } = curElem;
               return (
                 <tr key={index}>
                   <td>{index + 1}</td>
@@ -58,8 +82,13 @@ const AdminUsers = () => {
                     Edit <FaRegEdit />
                   </td>
                   <td>
-                    Delete
-                    <MdDeleteForever />
+                    <button
+                      onClick={() => handleDeleteUserById(_id)}
+                      className="del"
+                    >
+                      Delete
+                      <MdDeleteForever className="del-icon" />
+                    </button>
                   </td>
                 </tr>
               );
