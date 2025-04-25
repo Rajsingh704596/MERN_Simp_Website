@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../store/auth";
 import { MdDeleteForever } from "react-icons/md";
 import { FaRegEdit } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const AdminUsers = () => {
   const [userData, setUserData] = useState();
@@ -79,7 +80,9 @@ const AdminUsers = () => {
                   <td>{email}</td>
                   <td>{phone}</td>
                   <td>
-                    Edit <FaRegEdit />
+                    <Link to={`/admin/users/${_id}/edit`}>
+                      Edit <FaRegEdit />
+                    </Link>
                   </td>
                   <td>
                     <button

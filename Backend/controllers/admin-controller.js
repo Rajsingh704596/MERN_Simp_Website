@@ -17,6 +17,21 @@ const getAllUsers = async (req, res) => {
   }
 };
 
+//get single user id
+const getUserById = async (req, res) => {
+  try {
+    const id = req.params.id; //get id from url parameter which passed by frontend
+    const data = await User.findOne({ _id: id }, { password: 0 }); // here _id is database key where value is id pass which want for find , and password not want to need so pass 0
+    if (!data) {
+      return res.status(400).json({ msg: "User Not found" });
+    }
+    return res.status(200).json(data);
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+};
+
 //Delete user id
 const deleteUserById = async (req, res) => {
   try {
@@ -45,4 +60,4 @@ const getAllContacts = async (req, res) => {
   }
 };
 
-module.exports = { getAllUsers, getAllContacts, deleteUserById };
+module.exports = { getAllUsers, getAllContacts, deleteUserById, getUserById };
