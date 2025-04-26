@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../store/auth";
+import { MdDeleteForever } from "react-icons/md";
+import { toast } from "react-toastify";
 
 const AdminContacts = () => {
   const [contactData, setContactData] = useState([]); // Store Contact Data
@@ -23,9 +25,38 @@ const AdminContacts = () => {
     }
   };
 
+  // Delete the Contact by Id
+  const handleDeleteContactById = async (id) => {
+    try {
+      const res = await fetch(
+        `http://localhost:5000/api/admin/contacts/delete/${id}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: AuthorizationBearerToken,
+          },
+        }
+      );
+
+      const data = await res.json();
+      console.log(`Contact delete: ${data}`);
+
+      if (res.ok) {
+        getAllContactData(); // for refresh the contact data
+        toast.success("Contact data Deleted Successfully");
+      } else {
+        toast.warning("Contact data not delete ");
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message);
+    }
+  };
+
   useEffect(() => {
     getAllContactData();
   }, []);
+
   return (
     <section className="admin-users-section">
       <div className="container">
@@ -44,7 +75,7 @@ const AdminContacts = () => {
           </thead>
           <tbody>
             {contactData?.map((curElem, index) => {
-              const { username, email, message } = curElem;
+              const { _id, username, email, message } = curElem;
               return (
                 <tr key={index}>
                   <td>{index + 1}</td>
@@ -52,7 +83,13 @@ const AdminContacts = () => {
                   <td>{email}</td>
                   <td>{message}</td>
                   <td>
-                    <button>Delete</button>
+                    <button
+                      onClick={() => handleDeleteContactById(_id)}
+                      className="del"
+                    >
+                      Delete
+                      <MdDeleteForever className="del-icon" />
+                    </button>
                   </td>
                 </tr>
               );

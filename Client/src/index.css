@@ -409,16 +409,18 @@ td:nth-child(5) {
   transition: color 0.2s;
 }
 
-td:nth-child(6) .del {
+.del {
   margin-bottom: 2rem;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 10px;
-  padding: 4px 0px;
+  padding: 5px 12px;
+  width: 100px;
+  font-size: medium;
 
   & .del-icon {
-    margin-top: 2px;
+    margin-top: 3px;
   }
 }
 
@@ -426,6 +428,6 @@ td:nth-child(5):hover {
   color: #1e97fa;
 }
 
-td:nth-child(6) .del:hover {
+.del:hover {
   background-color: #ff0202;
 }

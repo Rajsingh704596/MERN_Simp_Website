@@ -2,7 +2,7 @@ const User = require("../models/user-model");
 const Contact = require("../models/contact-model");
 
 // Get all users logic
-const getAllUsers = async (req, res) => {
+const getAllUsers = async (req, res, next) => {
   try {
     const users = await User.find({}, { password: 0 }); // User collection all data get as a tease only password field don't show
     console.log(users);
@@ -18,7 +18,7 @@ const getAllUsers = async (req, res) => {
 };
 
 //get single user id logic
-const getUserById = async (req, res) => {
+const getUserById = async (req, res, next) => {
   try {
     const id = req.params.id; //get id from url parameter which passed by frontend
     const data = await User.findOne({ _id: id }, { password: 0 }); // here _id is database key where value is id pass which want for find , and password not want to need so pass 0
@@ -33,7 +33,7 @@ const getUserById = async (req, res) => {
 };
 
 //Update single user data by id (In Database using updateOne method in User model) logic
-const UpdateUserById = async (req, res) => {
+const UpdateUserById = async (req, res, next) => {
   try {
     const id = req.params.id; //get id from url parameter which is passed by frontend
     const UpdateUserData = req.body; //update user data get in backend using req.body which is pass by frontend
@@ -53,7 +53,7 @@ const UpdateUserById = async (req, res) => {
 };
 
 //Delete user id
-const deleteUserById = async (req, res) => {
+const deleteUserById = async (req, res, next) => {
   try {
     const id = req.params.id; //get id from url parameter which passed by frontend
     await User.deleteOne({ _id: id }); // here _id is database Object_id key where value id pass which want delete (if it's match any database _id then delete it)
@@ -65,7 +65,7 @@ const deleteUserById = async (req, res) => {
 };
 
 //Get all contacts logic
-const getAllContacts = async (req, res) => {
+const getAllContacts = async (req, res, next) => {
   try {
     const contacts = await Contact.find(); // get all contact from Contact collection in db
     console.log(contacts);
@@ -80,10 +80,26 @@ const getAllContacts = async (req, res) => {
   }
 };
 
+// Delete Contact Data by Id
+const deleteContactsById = async (req, res, next) => {
+  try {
+    const id = req.params.id; //get id from url parameter which passed by frontend
+    const result = await Contact.deleteOne({ _id: id }); // here _id is database Object_id key where value id pass which want delete (if it's match any database _id then delete it)
+    if (result.deletedCount === 0) {
+      return res.status(404).json({ message: "Contact not found" });
+    }
+    return res.status(200).json({ message: "Contact deleted successfully" });
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+};
+
 module.exports = {
   getAllUsers,
   getAllContacts,
   deleteUserById,
   getUserById,
   UpdateUserById,
+  deleteContactsById,
 };
