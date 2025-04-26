@@ -17,7 +17,7 @@ const getAllUsers = async (req, res) => {
   }
 };
 
-//get single user id
+//get single user id logic
 const getUserById = async (req, res) => {
   try {
     const id = req.params.id; //get id from url parameter which passed by frontend
@@ -26,6 +26,26 @@ const getUserById = async (req, res) => {
       return res.status(400).json({ msg: "User Not found" });
     }
     return res.status(200).json(data);
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+};
+
+//Update single user data by id (In Database using updateOne method in User model) logic
+const UpdateUserById = async (req, res) => {
+  try {
+    const id = req.params.id; //get id from url parameter which is passed by frontend
+    const UpdateUserData = req.body; //update user data get in backend using req.body which is pass by frontend
+    const UpdateData = await User.updateOne(
+      { _id: id },
+      { $set: UpdateUserData }
+    ); // here _id is database Object_id key where value id pass which want Update(if it's match any database _id then Update it using $set method)
+
+    if (!UpdateData) {
+      return res.status(400).json({ msg: "User not update" });
+    }
+    return res.status(200).json(UpdateData);
   } catch (error) {
     console.log(error);
     next(error);
@@ -60,4 +80,10 @@ const getAllContacts = async (req, res) => {
   }
 };
 
-module.exports = { getAllUsers, getAllContacts, deleteUserById, getUserById };
+module.exports = {
+  getAllUsers,
+  getAllContacts,
+  deleteUserById,
+  getUserById,
+  UpdateUserById,
+};

@@ -5,6 +5,7 @@ const {
   getAllContacts,
   deleteUserById,
   getUserById,
+  UpdateUserById,
 } = require("../controllers/admin-controller");
 const authMiddleware = require("../middleware/auth-middleware");
 const adminMiddleware = require("../middleware/admin-middleware");
@@ -14,6 +15,11 @@ router.route("/users").get(authMiddleware, adminMiddleware, getAllUsers); //when
 
 //Read Single User by Id
 router.route("/users/:id").get(authMiddleware, adminMiddleware, getUserById); //get method use
+
+// Update User by Id
+router
+  .route("/users/update/:id")
+  .patch(authMiddleware, adminMiddleware, UpdateUserById); //patch method use for Update
 
 // Delete User
 router
