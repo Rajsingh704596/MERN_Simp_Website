@@ -70,11 +70,11 @@ const getAllContacts = async (req, res) => {
     const contacts = await Contact.find(); // get all contact from Contact collection in db
     console.log(contacts);
 
-    if (!contacts || (await contacts.length) === 0) {
-      return res.status(404).json({ msg: "No Contacts Data found" });
+    if (!contacts || contacts.length === 0) {
+      return res.status(404).json({ message: "No Contacts Data found" });
     }
 
-    res.status(200).json(contacts); // response pass to admin dashboard
+    return res.status(200).json(contacts); // response pass to admin dashboard
   } catch (error) {
     next(error);
   }
