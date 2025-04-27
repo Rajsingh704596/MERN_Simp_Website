@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../store/auth";
+import { toast } from "react-toastify";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -10,7 +11,7 @@ const Register = () => {
     phone: "",
     password: "",
   });
-  const { storeJWTinLS } = useAuth(); // fun get from useContext custom hook
+  const { storeJWTinLS, API } = useAuth(); // fun get from useContext custom hook
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -24,7 +25,7 @@ const Register = () => {
     console.log(userReg);
 
     try {
-      const response = await fetch(`http://localhost:5000/api/auth/register`, {
+      const response = await fetch(`${API}/api/auth/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json", // it define post data is json format
@@ -40,15 +41,21 @@ const Register = () => {
       console.log("after json object change response from server", res_data);
       if (response.ok) {
         // stored the token in localhost
+        // stored the token in localhost
         storeJWTinLS(res_data.token); // fun call and json web token pass (for store in local storage)
         setUserReg({ username: "", email: "", phone: "", password: "" });
+        toast.success("Registration successfully");
         // navigate("/login");
         navigate("/"); // after register direct show home page
       } else {
-        alert(res_data.extraDetails ? res_data.extraDetails : res_data.message); //form validation error show in UI which we get from backend zod validation response
+        //alert(res_data.extraDetails ? res_data.extraDetails : res_data.message); //form validation error show in UI which we get from backend zod validation response
+        toast.warning(
+          res_data.extraDetails ? res_data.extraDetails : res_data.message
+        ); //form validation error show in UI which we get from backend zod validation response
       }
     } catch (error) {
       console.log("registration error", error);
+      toast.error("registration error", error);
     }
   };
 
