@@ -13,12 +13,27 @@ require("dotenv").config();
 //handling cors policy issue
 const cors = require("cors");
 
-// configure cors
+// Configure CORS for both development and production
+const allowedOrigins = [
+  "http://localhost:5173", // Local development
+  "https://mern-simp-website.vercel.app", // Your production frontend
+];
+
 const corsOptions = {
-  origin: "http://localhost:5173", //req. from this origin will be accept by server
-  methods: "GET , POST, PUT, DELETE, PATCH, HEAD",
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  methods: "GET, POST, PUT, DELETE, PATCH, HEAD",
   credentials: true,
 };
+
 app.use(cors(corsOptions));
 
 //middleware that parsing JSON data from incoming request. (must use at the beginning before any routes)
