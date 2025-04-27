@@ -42,7 +42,7 @@ const AdminUpdateUser = () => {
         toast.warning("User Data Not Update");
       }
     } catch (error) {
-      toast.error(error);
+      toast.error(error.message);
     }
   };
 

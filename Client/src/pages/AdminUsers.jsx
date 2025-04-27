@@ -3,6 +3,7 @@ import { useAuth } from "../store/auth";
 import { MdDeleteForever } from "react-icons/md";
 import { FaRegEdit } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const AdminUsers = () => {
   const [userData, setUserData] = useState();
@@ -43,9 +44,13 @@ const AdminUsers = () => {
 
       if (res.ok) {
         getAllUserData(); // for refresh the user data
+        toast.success("User data delete successfully");
+      } else {
+        toast.warning("User data nota delete");
       }
     } catch (error) {
       console.log(error);
+      toast.error(error.message);
     }
   };
 

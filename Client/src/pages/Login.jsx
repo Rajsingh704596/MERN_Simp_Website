@@ -35,7 +35,7 @@ const Login = () => {
         body: JSON.stringify(userLog), // JavaScript Obj. to JSON string convert and send data to backend
       });
       // console.log("after login response", response);
-      const res_data = await response.json(); // response convert into JSON obj form
+      const res_data = await response.json(); // response convert json into obj form
 
       if (response.ok) {
         console.log(
@@ -50,7 +50,18 @@ const Login = () => {
         toast.success("login successful");
         setUserLog({ email: "", password: "" });
 
-        navigate("/");
+        // console.log("after login get res jwt token", res_data.token);
+
+        // Check admin status from token
+        // Split jwt token into 3 parts (Header.Payload.Signature)
+        const tokenParts = res_data.token.split("."); // Example: "aaa.bbb.ccc" -> ["aaa", "bbb", "ccc"]
+        const payload = JSON.parse(atob(tokenParts[1])); // Decode the second part (Payload)  // JSON string ko object m bdla (Base64 ko normal text m convert using atob)
+
+        if (payload.isAdmin) {
+          navigate("/admin");
+        } else {
+          navigate("/");
+        }
       } else {
         console.log("invalid credential");
         // alert(res_data.extraDetails ? res_data.extraDetails : res_data.message);
@@ -60,7 +71,7 @@ const Login = () => {
       }
     } catch (error) {
       console.log("Login error", error);
-      toast.error("Login error :", error);
+      toast.error("Login Failed", error.message);
     }
   };
 

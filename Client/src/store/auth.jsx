@@ -7,10 +7,11 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("token")); // store jwt token
   const [user, setUser] = useState(null); // store user data after jwt verification
   const [service, setService] = useState([]); // store services data
+  const [isLoading, setIsLoading] = useState(true); // store loading state when token not get
 
   const AuthorizationBearerToken = `Bearer ${token}`; // Bearer token store in variable so we use this variable here , also in consumer component(like admin panel) that jwt token pass from localstorage to backend for jwt verify also show user is login
 
-  //fun that used to store Json web token in local storage (when login or register)
+  //^ fun that used to store Json web token in local storage (when login or register)
   const storeJWTinLS = (serverToken) => {
     setToken(serverToken); //after login / register token variable store that token  , so this component render again and isLoggedIn value true
     return localStorage.setItem("token", serverToken);
@@ -20,18 +21,22 @@ export const AuthProvider = ({ children }) => {
   const isLoggedIn = !!token; //we can also use :-  Boolean(token)
   console.log("is logged in ?", isLoggedIn);
 
-  //fun for logout functionality
+  //^ fun for logout functionality
   const LogoutUser = () => {
     setToken(""); // token is empty
     setUser(null); // Clear user data on logout
     return localStorage.removeItem("token"); //token remove from local storage
   };
 
-  //JWT Authentication :- to get the currently loggedIn user data
+  //^ JWT Authentication :- to get the currently loggedIn user data
   const userAuthentication = async () => {
     try {
-      if (!token || token === "") {
-        setUser(null); // Clear user if no token
+      setIsLoading(true); // first loading true
+
+      // If there's no token, skip the API call
+      if (!token) {
+        setUser(null);
+        setIsLoading(false);
         return;
       }
 
@@ -47,10 +52,22 @@ export const AuthProvider = ({ children }) => {
         const data = await response.json(); // response convert into json obj. format
         console.log("user data", data);
         setUser(data.msg);
+        // after get current logging userData (token get) , isLoading set to false
+        setIsLoading(false);
+      } else {
+        // If token is invalid, clear it
+        localStorage.removeItem("token");
+        setToken("");
+        setUser(null);
+        // if user data not get then isLoading set to false
+        setIsLoading(false);
       }
     } catch (error) {
       console.error("Error fetching user data", error);
-      setUser(null); // Clear user if request fails
+      localStorage.removeItem("token");
+      setToken("");
+      setUser(null);
+      setIsLoading(false);
     }
   };
 
@@ -85,6 +102,7 @@ export const AuthProvider = ({ children }) => {
         user,
         service,
         AuthorizationBearerToken,
+        isLoading,
       }}
     >
       {children}
