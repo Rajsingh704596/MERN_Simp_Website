@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useAuth } from "../store/auth";
+import { toast } from "react-toastify";
 
 const Contact = () => {
   const [userDtl, setUserDtl] = useState({
@@ -10,7 +11,7 @@ const Contact = () => {
   });
 
   const [userData, setUserData] = useState(true); //default it's true
-  const { user } = useAuth(); // custom useContext hook user data get
+  const { user, API } = useAuth(); // custom useContext hook user data get
   if (userData && user) {
     setUserDtl({
       //^ when both condition true Auto fill contact Fields with User Data from the database
@@ -34,7 +35,7 @@ const Contact = () => {
     console.log(userDtl);
 
     try {
-      const res = await fetch("http://localhost:5000/api/form/contact", {
+      const res = await fetch(`${API}/api/form/contact`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -43,14 +44,18 @@ const Contact = () => {
       });
       // console.log("contact form fill then get response", res);
       if (res.ok) {
+        toast.success("Submit successfully");
         setUserDtl({
           username: "",
           email: "",
           message: "",
         });
+      } else {
+        toast.warning("Not Submit");
       }
     } catch (error) {
       console.log("Message not sent", error);
+      toast.error(error.message);
     }
   };
 

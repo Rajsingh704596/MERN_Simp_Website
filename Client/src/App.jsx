@@ -8,6 +8,10 @@ import Login from "./pages/Login";
 import AppLayout from "./components/AppLayout";
 import Error from "./pages/Error";
 import Logout from "./pages/Logout";
+import AdminLayout from "./components/layouts/AdminLayout";
+import AdminUsers from "./pages/AdminUsers";
+import AdminContacts from "./pages/AdminContacts";
+import AdminUpdateUser from "./pages/AdminUpdateUser";
 
 function App() {
   return (
@@ -24,6 +28,14 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/logout" element={<Logout />} />
             <Route path="*" element={<Error />} />
+
+            <Route path="/admin" element={<AdminLayout />}>
+              {/* Nested route create for Admin Panel */}
+              {/* nested route forward slash not need to write it's automatic add */}
+              <Route path="users" element={<AdminUsers />} />
+              <Route path="users/:id/edit" element={<AdminUpdateUser />} />
+              <Route path="contacts" element={<AdminContacts />} />
+            </Route>
           </Route>
         </Routes>
       </BrowserRouter>

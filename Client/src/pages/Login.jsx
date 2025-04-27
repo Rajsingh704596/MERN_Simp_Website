@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../store/auth";
-
-const URL = "http://localhost:5000/api/auth/login";
+import { toast } from "react-toastify"; // toast work like alert
 
 const Login = () => {
   const [userLog, setUserLog] = useState({
@@ -13,7 +12,9 @@ const Login = () => {
   const navigate = useNavigate();
 
   // fun get from useContext custom hook
-  const { storeJWTinLS } = useAuth();
+  const { storeJWTinLS, API } = useAuth();
+
+  const URL = `${API}/api/auth/login`;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -34,7 +35,8 @@ const Login = () => {
         body: JSON.stringify(userLog), // JavaScript Obj. to JSON string convert and send data to backend
       });
       // console.log("after login response", response);
-      const res_data = await response.json(); // response convert into JSON obj form
+      const res_data = await response.json(); // response convert json into obj form
+
       if (response.ok) {
         console.log(
           "response from server changed in json formate so we get data(token)",
@@ -44,17 +46,32 @@ const Login = () => {
         // now we can store the token in local storage or session storage or cookies , here we store in Local storage
         storeJWTinLS(res_data.token); //fun call and pass Json web token
 
-        alert("login successful");
+        // alert("login successful");
+        toast.success("login successful");
         setUserLog({ email: "", password: "" });
 
-        navigate("/");
+        // console.log("after login get res jwt token", res_data.token);
+
+        // Check admin status from token
+        // Split jwt token into 3 parts (Header.Payload.Signature)
+        const tokenParts = res_data.token.split("."); // Example: "aaa.bbb.ccc" -> ["aaa", "bbb", "ccc"]
+        const payload = JSON.parse(atob(tokenParts[1])); // Decode the second part (Payload)  // JSON string ko object m bdla (Base64 ko normal text m convert using atob)
+
+        if (payload.isAdmin) {
+          navigate("/admin");
+        } else {
+          navigate("/");
+        }
       } else {
         console.log("invalid credential");
-        alert(res_data.extraDetails ? res_data.extraDetails : res_data.message);
+        // alert(res_data.extraDetails ? res_data.extraDetails : res_data.message);
+        toast.warning(
+          res_data.extraDetails ? res_data.extraDetails : res_data.message
+        );
       }
     } catch (error) {
       console.log("Login error", error);
-      alert("Login error");
+      toast.error("Login Failed", error.message);
     }
   };
 

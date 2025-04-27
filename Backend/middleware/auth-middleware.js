@@ -36,7 +36,7 @@ const authMiddleware = async (req, res, next) => {
     console.log("user data get from db which email is same", userData);
 
     //custom req property create (req. is an object that contain information about HTTP request. by adding custom properties to req, we can pass info. b/w middleware fun. or make it available in route handler.)
-    req.user = userData; // now this value use by auth-controller
+    req.user = userData; // now this value use by auth-controller  //and use by admin-middleware(b/c req.user have user data who is login)
     req.token = token;
     req.userID = userData._id;
 
