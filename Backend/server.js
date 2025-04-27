@@ -38,7 +38,7 @@ app.use("/api/admin", adminRoute);
 //before connection check if error exist , so no connection and error pass to client( that's why we use error middleware which handle whole backend error)
 app.use(errorMiddleware);
 
-const Port = 5000;
+const Port = process.env.PORT || 5000;
 
 connectDb();
 
