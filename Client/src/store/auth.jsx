@@ -11,6 +11,8 @@ export const AuthProvider = ({ children }) => {
 
   const AuthorizationBearerToken = `Bearer ${token}`; // Bearer token store in variable so we use this variable here , also in consumer component(like admin panel) that jwt token pass from localstorage to backend for jwt verify also show user is login
 
+  const API = import.meta.env.VITE_APP_URI_API; //here API pass in every consumer where it's need
+
   //^ fun that used to store Json web token in local storage (when login or register)
   const storeJWTinLS = (serverToken) => {
     setToken(serverToken); //after login / register token variable store that token  , so this component render again and isLoggedIn value true
@@ -40,7 +42,7 @@ export const AuthProvider = ({ children }) => {
         return;
       }
 
-      const response = await fetch("http://localhost:5000/api/auth/user", {
+      const response = await fetch(`${API}/api/auth/user`, {
         method: "GET",
         headers: {
           //  Authorization: `Bearer ${token}`, //token data pass to backend for verify
@@ -74,7 +76,7 @@ export const AuthProvider = ({ children }) => {
   // fun for fetch the services data from the database
   const getServicesDataReq = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/data/service", {
+      const res = await fetch(`${API}/api/data/service`, {
         method: "GET",
       });
 
@@ -103,6 +105,7 @@ export const AuthProvider = ({ children }) => {
         service,
         AuthorizationBearerToken,
         isLoading,
+        API,
       }}
     >
       {children}

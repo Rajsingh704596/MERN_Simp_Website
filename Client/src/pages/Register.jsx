@@ -11,7 +11,7 @@ const Register = () => {
     phone: "",
     password: "",
   });
-  const { storeJWTinLS } = useAuth(); // fun get from useContext custom hook
+  const { storeJWTinLS, API } = useAuth(); // fun get from useContext custom hook
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -25,17 +25,17 @@ const Register = () => {
     console.log(userReg);
 
     try {
-      const response = await fetch(`http://localhost:5000/api/auth/register`, {
+      const response = await fetch(`${API}/api/auth/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json", // it define post data is json format
         },
         body: JSON.stringify(userReg), // state data pass in JSON.stringify format in body
       });
-      // // console.log(
-      // //   "after registration API hit, get response from server",
-      // //   response
-      // // );
+      // console.log(
+      //   "after registration API hit, get response from server",
+      //   response
+      // );
 
       const res_data = await response.json();
       console.log("after json object change response from server", res_data);

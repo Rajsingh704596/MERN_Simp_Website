@@ -10,7 +10,7 @@ const AdminUpdateUser = () => {
     phone: "",
   });
 
-  const { AuthorizationBearerToken } = useAuth();
+  const { AuthorizationBearerToken, API } = useAuth();
   const Params = useParams(); // id get from router
   // console.log("Params data Get id from path In Router", Params);
 
@@ -24,17 +24,14 @@ const AdminUpdateUser = () => {
     e.preventDefault();
 
     try {
-      const res = await fetch(
-        `http://localhost:5000/api/admin/users/update/${Params.id}`,
-        {
-          method: "PATCH", //PATCH method use for update
-          headers: {
-            "Content-Type": "application/json", // if we pass JSON data for update , we also pass this line so backend can read Json data (Same like Post method)
-            Authorization: AuthorizationBearerToken, //Authorized token pass
-          },
-          body: JSON.stringify(userData), // In body updated user data (which is object form) pass into JSON format on Backend
-        }
-      );
+      const res = await fetch(`${API}/api/admin/users/update/${Params.id}`, {
+        method: "PATCH", //PATCH method use for update
+        headers: {
+          "Content-Type": "application/json", // if we pass JSON data for update , we also pass this line so backend can read Json data (Same like Post method)
+          Authorization: AuthorizationBearerToken, //Authorized token pass
+        },
+        body: JSON.stringify(userData), // In body updated user data (which is object form) pass into JSON format on Backend
+      });
 
       if (res.ok) {
         toast.success("User Data Update Successfully");
@@ -48,15 +45,12 @@ const AdminUpdateUser = () => {
 
   const getSingleUserData = async () => {
     try {
-      const res = await fetch(
-        `http://localhost:5000/api/admin/users/${Params.id}`,
-        {
-          method: "Get",
-          headers: {
-            Authorization: AuthorizationBearerToken,
-          },
-        }
-      );
+      const res = await fetch(`${API}/api/admin/users/${Params.id}`, {
+        method: "Get",
+        headers: {
+          Authorization: AuthorizationBearerToken,
+        },
+      });
 
       const data = await res.json();
       console.log(`Single User Data: ${data}`);

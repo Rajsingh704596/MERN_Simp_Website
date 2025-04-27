@@ -8,11 +8,11 @@ import { toast } from "react-toastify";
 const AdminUsers = () => {
   const [userData, setUserData] = useState();
 
-  const { AuthorizationBearerToken } = useAuth(); //UseContext custom hook , get jwt token which we pass with get req.
+  const { AuthorizationBearerToken, API } = useAuth(); //UseContext custom hook , get jwt token which we pass with get req.
 
   const getAllUserData = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/admin/users", {
+      const res = await fetch(`${API}/api/admin/users`, {
         method: "GET",
         headers: {
           Authorization: AuthorizationBearerToken,
@@ -29,15 +29,12 @@ const AdminUsers = () => {
   // Delete the user by Id on Delete button
   const handleDeleteUserById = async (id) => {
     try {
-      const res = await fetch(
-        `http://localhost:5000/api/admin/users/delete/${id}`,
-        {
-          method: "DELETE",
-          headers: {
-            Authorization: AuthorizationBearerToken,
-          },
-        }
-      );
+      const res = await fetch(`${API}/api/admin/users/delete/${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: AuthorizationBearerToken,
+        },
+      });
 
       const data = await res.json();
       console.log(`Users after delete: ${data}`);

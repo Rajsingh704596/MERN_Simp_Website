@@ -5,11 +5,11 @@ import { toast } from "react-toastify";
 
 const AdminContacts = () => {
   const [contactData, setContactData] = useState([]); // Store Contact Data
-  const { AuthorizationBearerToken } = useAuth(); // useContext custom hook get token
+  const { AuthorizationBearerToken, API } = useAuth(); // useContext custom hook get token
 
   const getAllContactData = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/admin/contacts", {
+      const res = await fetch(`${API}/api/admin/contacts`, {
         method: "GET",
         headers: {
           Authorization: AuthorizationBearerToken,
@@ -28,15 +28,12 @@ const AdminContacts = () => {
   // Delete the Contact by Id
   const handleDeleteContactById = async (id) => {
     try {
-      const res = await fetch(
-        `http://localhost:5000/api/admin/contacts/delete/${id}`,
-        {
-          method: "DELETE",
-          headers: {
-            Authorization: AuthorizationBearerToken,
-          },
-        }
-      );
+      const res = await fetch(`${API}/api/admin/contacts/delete/${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: AuthorizationBearerToken,
+        },
+      });
 
       const data = await res.json();
       console.log(`Contact delete: ${data}`);

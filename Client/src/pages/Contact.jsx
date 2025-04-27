@@ -11,7 +11,7 @@ const Contact = () => {
   });
 
   const [userData, setUserData] = useState(true); //default it's true
-  const { user } = useAuth(); // custom useContext hook user data get
+  const { user, API } = useAuth(); // custom useContext hook user data get
   if (userData && user) {
     setUserDtl({
       //^ when both condition true Auto fill contact Fields with User Data from the database
@@ -35,7 +35,7 @@ const Contact = () => {
     console.log(userDtl);
 
     try {
-      const res = await fetch("http://localhost:5000/api/form/contact", {
+      const res = await fetch(`${API}/api/form/contact`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

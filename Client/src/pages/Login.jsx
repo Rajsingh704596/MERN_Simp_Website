@@ -3,8 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../store/auth";
 import { toast } from "react-toastify"; // toast work like alert
 
-const URL = "http://localhost:5000/api/auth/login";
-
 const Login = () => {
   const [userLog, setUserLog] = useState({
     email: "",
@@ -14,7 +12,9 @@ const Login = () => {
   const navigate = useNavigate();
 
   // fun get from useContext custom hook
-  const { storeJWTinLS } = useAuth();
+  const { storeJWTinLS, API } = useAuth();
+
+  const URL = `${API}/api/auth/login`;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
