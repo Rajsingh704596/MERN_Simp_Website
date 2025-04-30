@@ -37,8 +37,33 @@ const Home = () => {
           </div>
 
           {/* hero image */}
+          {/* Hero Image with WebP and Fallback */}
           <figure className="hero-image">
-            <img src="/image.jpg" alt="hero image" width="400" height="400" />
+            <picture>
+              {/* WebP format (modern browsers) */}
+              <source
+                srcSet="/image.webp"
+                type="image/webp"
+                width="400"
+                height="400"
+              />
+              {/* Fallback JPEG format (older browsers) */}
+              <source
+                srcSet="/image.jpg"
+                type="image/jpeg"
+                width="400"
+                height="400"
+              />
+              {/* Default image with alt text and dimensions */}
+              <img
+                src="/image.jpg"
+                alt="Developer Image"
+                width="400"
+                height="400"
+                loading="lazy" // Lazy loading for better performance
+                decoding="async" // Async decoding for better rendering
+              />
+            </picture>
             <figcaption>Developer Image</figcaption>
           </figure>
         </div>

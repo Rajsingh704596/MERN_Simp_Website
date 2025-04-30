@@ -81,7 +81,31 @@ const Login = () => {
         <div className="grid grid-two-cols">
           {/* Image */}
           <div className="hero-image">
-            <img src="./image.jpg" alt="Register Now" width="400" />
+            <picture>
+              {/* WebP format (modern browsers) */}
+              <source
+                srcSet="/Login.webp"
+                type="image/webp"
+                width="400"
+                height="400"
+              />
+              {/* Fallback JPEG format (older browsers) */}
+              <source
+                srcSet="/Login.jpg"
+                type="image/jpeg"
+                width="400"
+                height="400"
+              />
+              {/* Default Contact image with alt text and dimensions */}
+              <img
+                src="/Login.jpg"
+                alt="Developer Image"
+                width="400"
+                height="400"
+                loading="lazy" // Lazy loading for better performance
+                decoding="async" // Async decoding for better rendering
+              />
+            </picture>
           </div>
           {/* login form */}
 

@@ -65,7 +65,31 @@ const Contact = () => {
         <div className=" grid grid-two-cols">
           {/* Image */}
           <div className="hero-image">
-            <img src="/image.jpg" alt="contact" width="400" />
+            <picture>
+              {/* WebP format (modern browsers) */}
+              <source
+                srcSet="/Contact.webp"
+                type="image/webp"
+                width="400"
+                height="400"
+              />
+              {/* Fallback JPEG format (older browsers) */}
+              <source
+                srcSet="/Contact.jpg"
+                type="image/jpeg"
+                width="400"
+                height="400"
+              />
+              {/* Default image with alt text and dimensions */}
+              <img
+                src="/Contact.jpg"
+                alt="Developer Image"
+                width="400"
+                height="400"
+                loading="lazy" // Lazy loading for better performance
+                decoding="async" // Async decoding for better rendering
+              />
+            </picture>
           </div>
           {/* Registration form */}
           <form onSubmit={handleSubmit}>

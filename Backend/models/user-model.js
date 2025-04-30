@@ -11,7 +11,7 @@ const userSchema = new mongoose.Schema({
   isAdmin: { type: Boolean, default: false },
 });
 
-//^ secure the password (hash)with the bcryptjs using ' pre method ' which gives by mongoose
+//^ secure the password (hash)with the bcryptjs using ' pre method  which gives by mongoose '
 userSchema.pre("save", async function () {
   // it's work like middleware where it run this fun before create/save document in collection inside db
   // console.log("pre method", this); // here this keyword gives current register details
@@ -34,7 +34,7 @@ userSchema.pre("save", async function () {
 
 //^ Compare the password in instance methods(fun)
 userSchema.methods.comparePassword = async function (password) {
-  return bcrypt.compare(password, this.password); //  here compare db password , userType pass which get using this
+  return bcrypt.compare(password, this.password); //  here compare db store password(hash password ) , userType pass which get using this
 };
 
 //^ json web token instance methods create   -       (userSchema.methods - it's method use to create many instance of method(fun) )
@@ -67,11 +67,11 @@ const User = new mongoose.model("User", userSchema); // so now, In mongodb colle
 module.exports = User;
 
 // npm i jsonwebtoken
-//? JWT (Jason Web Token)- it is open standard (RFC 7519) that defines a compact and self-contained way for securely transmitting information between parties as a JSON object.
+//? JWT (Json Web Token)- it is open standard (RFC 7519) that defines a compact and self-contained way for securely transmitting information between parties as a JSON object.
 //? it's use for Authentication(Verify the identity of user) and Authorization(what action a user/client is allowed to perform)
 //? JWT have 3 Components -
 //^ 1. Header - contain meta data about the token
-//^ 2. Payload- contain additional data (like user id , user name, expiration time)
+//^ 2. Payload- contain additional data (like user id , user name, expiration time, isAdmin)
 //^ 3. Signature- secret sign which only know by server
 
 //todo-  JWT issued by server for authentication process and always store in Client side( in the form of cookies or local storage) not database.

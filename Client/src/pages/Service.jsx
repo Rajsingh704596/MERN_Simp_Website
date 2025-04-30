@@ -15,7 +15,24 @@ const Service = () => {
           return (
             <li key={_id} className="card">
               <figure>
-                <img src="/image.jpg" alt="image" width="200" />
+                <picture>
+                  {/* WebP format (modern browsers) */}
+                  <source
+                    srcSet="/Service.webp"
+                    type="image/webp"
+                    width="200"
+                  />
+                  {/* Fallback JPEG format (older browsers) */}
+                  <source srcSet="/Service.jpg" type="image/jpeg" width="200" />
+                  {/* Default Contact image with alt text and dimensions */}
+                  <img
+                    src="/Service.jpg"
+                    alt="Developer Image"
+                    width="200"
+                    loading="lazy" // Lazy loading for better performance
+                    decoding="async" // Async decoding for better rendering
+                  />
+                </picture>
               </figure>
               <figcaption>
                 <h3>{service}</h3>
