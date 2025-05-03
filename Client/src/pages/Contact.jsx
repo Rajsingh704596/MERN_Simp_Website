@@ -61,8 +61,8 @@ const Contact = () => {
 
   return (
     <>
-      <section className="section-hero">
-        <div className=" grid grid-two-cols">
+      <section className="section-hero ">
+        <div className=" grid grid-two-cols form">
           {/* Image */}
           <div className="hero-image">
             <picture>

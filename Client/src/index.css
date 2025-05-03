@@ -169,7 +169,14 @@ a:active {
   color: white;
 }
 
+
 /* Contact page */
+
+.form{
+  background-color: rgba(93, 90, 90, 0.233);
+  padding: 2rem 0;
+  z-index: 0;
+}
 
 .contact {
   display: flex;
@@ -264,6 +271,12 @@ a:active {
   display: flex;
   flex-direction: column;
   gap: 2rem;
+}
+
+h3{
+  font-size: larger;
+  margin-bottom: 1.5rem;
+  font-weight: bolder;
 }
 
 .features {
@@ -438,3 +451,5 @@ td:nth-child(5):hover {
 .del:hover {
   background-color: #ff0202;
 }
+
+
