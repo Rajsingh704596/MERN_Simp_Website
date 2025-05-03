@@ -9,8 +9,16 @@ const Navbar = () => {
     // header
     <header>
       <div className="container">
-        <div className="logo-brand">
-          <NavLink to="/"> My Logo</NavLink>
+        <div>
+          <NavLink to="/" className="logo-brand">
+            <img
+              src="./android-chrome-192x192.png"
+              alt="My logo"
+              width={30}
+              height={25}
+            />
+            Web Dev
+          </NavLink>
         </div>
         {/* Navigation link */}
         <nav>

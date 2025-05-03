@@ -1,95 +1,150 @@
+import { motion } from "framer-motion";
 import { NavLink } from "react-router-dom";
+
+// Simplified animation variants
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      when: "beforeChildren",
+    },
+  },
+};
+
+const fadeUp = {
+  hidden: { y: 20, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: { duration: 0.5 },
+  },
+};
+
+const fadeIn = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { duration: 0.5 },
+  },
+};
+
 const Home = () => {
+  const stats = [
+    { value: "50+", label: "registered companies" },
+    { value: "100+", label: "Happy Clients" },
+    { value: "500+", label: "well known developers" },
+    { value: "24/7", label: "service" },
+  ];
+
   return (
-    <section className="section-hero">
+    <motion.section
+      className="section-hero"
+      initial="hidden"
+      animate="visible"
+      variants={containerVariants}
+    >
       <main>
         <div className="container grid grid-two-cols">
-          <div className="hero-content">
-            <h1>Welcome to Home page</h1>
-            <div>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit,
-                consectetur distinctio nostrum atque nam ipsum iusto placeat
-                autem doloribus dolore? Maiores mollitia labore sed nisi earum
-                vitae! Perferendis quae voluptatem, deserunt voluptates porro,
-                atque suscipit molestias cupiditate aliquam eveniet autem qui
-                inventore sapiente quia maiores adipisci est vero reiciendis
-                magni!
-              </p>
+          {/* Content Section */}
+          <motion.div className="hero-content" variants={containerVariants}>
+            <motion.h1 variants={fadeUp}>Welcome to Home page</motion.h1>
+            <motion.h2 variants={fadeUp}>
+              Transform Your Digital Presence
+            </motion.h2>
 
-              <div className="child">
+            <motion.div variants={containerVariants}>
+              <motion.p variants={fadeUp}>
+                We create custom solutions that help businesses grow in the
+                digital world. Our team of experts delivers high-quality
+                products tailored to your needs.
+              </motion.p>
+
+              <motion.div className="child" variants={fadeUp}>
                 <NavLink to="/contact">
-                  <button aria-label="Connect now and fill contact page">
-                    {/* aria provide extra context for screen reader */}
+                  <motion.button
+                    aria-label="Connect now and fill contact page"
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
                     Connect Now
-                  </button>
+                  </motion.button>
                 </NavLink>
                 <NavLink to="/service">
-                  <button
+                  <motion.button
                     className="sec-btn"
                     aria-label="Learn more about our service"
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.98 }}
                   >
                     Learn More
-                  </button>
+                  </motion.button>
                 </NavLink>
-              </div>
-            </div>
-          </div>
+              </motion.div>
+            </motion.div>
+          </motion.div>
 
-          {/* hero image */}
-          {/* Hero Image with WebP and Fallback */}
-          <figure className="hero-image">
+          {/* Hero Image */}
+          <motion.figure
+            className="hero-image"
+            variants={{
+              hidden: { opacity: 0, x: 50 },
+              visible: { opacity: 1, x: 0, transition: { duration: 0.5 } },
+            }}
+          >
             <picture>
-              {/* WebP format (modern browsers) */}
               <source
                 srcSet="/image.webp"
                 type="image/webp"
                 width="400"
                 height="400"
               />
-              {/* Fallback JPEG format (older browsers) */}
               <source
                 srcSet="/image.jpg"
                 type="image/jpeg"
                 width="400"
                 height="400"
               />
-              {/* Default image with alt text and dimensions */}
-              <img
+              <motion.img
                 src="/image.jpg"
                 alt="Developer Image"
                 width="400"
                 height="400"
-                loading="lazy" // Lazy loading for better performance
-                decoding="async" // Async decoding for better rendering
+                loading="lazy"
+                decoding="async"
               />
             </picture>
-            <figcaption>Developer Image</figcaption>
-          </figure>
+            <motion.figcaption variants={fadeIn}>
+              Developer Image
+            </motion.figcaption>
+          </motion.figure>
         </div>
       </main>
-      {/* 2nd Section */}
-      <section className="section-analytics">
+
+      {/* Stats Section */}
+      <motion.section
+        className="section-analytics"
+        viewport={{ once: true, amount: 0.2 }}
+        initial="hidden"
+        whileInView="visible"
+        variants={containerVariants}
+      >
         <div className="container grid grid-four-cols">
-          <div className="div1">
-            <h2>50+</h2>
-            <p>registered companies</p>
-          </div>
-          <div className="div1">
-            <h2>100+</h2>
-            <p>Happy Clients</p>
-          </div>
-          <div className="div1">
-            <h2>500+</h2>
-            <p>well know developers</p>
-          </div>
-          <div className="div1">
-            <h2>24/7</h2>
-            <p>service</p>
-          </div>
+          {stats.map((stat, index) => (
+            <motion.div
+              key={index}
+              className="div1"
+              variants={fadeUp}
+              whileHover={{ y: -3 }}
+            >
+              <motion.h2>{stat.value}</motion.h2>
+              <p>{stat.label}</p>
+            </motion.div>
+          ))}
         </div>
-      </section>
-    </section>
+      </motion.section>
+    </motion.section>
   );
 };
 

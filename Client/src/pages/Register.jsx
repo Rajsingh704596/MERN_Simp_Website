@@ -61,7 +61,7 @@ const Register = () => {
 
   return (
     <>
-      <section className="section-hero">
+      <section className="section-hero form">
         <div className="grid grid-two-cols">
           {/* Image */}
           <div className="hero-image">

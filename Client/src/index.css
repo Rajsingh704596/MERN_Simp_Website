@@ -36,6 +36,18 @@ textarea {
 }
 
 /* Note we use NavLink that is actually represent anchor tag a */
+.logo-brand{
+  padding: 0px 5px;
+  display: flex;
+  align-items: center;
+  gap:10px;
+  font-weight: bold;
+  & img{
+    border-radius: 100%;  
+    box-shadow:1px 1px 10px 0.5px rgb(47, 0, 255)
+  }
+}
+
 a {
   font-weight: 500;
   color: var(--btn-color);
@@ -169,7 +181,14 @@ a:active {
   color: white;
 }
 
+
 /* Contact page */
+
+.form{
+  background-color: rgba(93, 90, 90, 0.233);
+  padding: 2rem 0;
+  z-index: 0;
+}
 
 .contact {
   display: flex;
@@ -264,6 +283,12 @@ a:active {
   display: flex;
   flex-direction: column;
   gap: 2rem;
+}
+
+h3{
+  font-size: larger;
+  margin-bottom: 1.5rem;
+  font-weight: bolder;
 }
 
 .features {
@@ -438,3 +463,5 @@ td:nth-child(5):hover {
 .del:hover {
   background-color: #ff0202;
 }
+
+
