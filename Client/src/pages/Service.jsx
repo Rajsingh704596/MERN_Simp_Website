@@ -38,69 +38,83 @@ const Service = () => {
       };
 
   return (
-    <motion.section
-      className="container service"
-      initial="hidden"
-      whileInView="show"
-      viewport={{ once: true, margin: "0px 0px -150px 0px" }} // Early trigger for better UX
-      variants={containerVariants}
-    >
-      <motion.span variants={itemVariants}>
-        <h1>Services</h1>
-      </motion.span>
+    <>
+      {/* Meta tag for about page */}
+      <title>Service | MERN React19 Site </title>
+      <meta name="description" content="Our Service" />
+      <meta name="keyword" content="service,service page, seo, meta" />
+      <meta name="author" content="Rock" />
+      <link rel="canonical" content="https://mern-simp-website.vercel.app" />
 
-      <motion.article
-        className="grid grid-three-cols"
+      <motion.section
+        className="container service"
+        aria-label="service page"
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, margin: "0px 0px -150px 0px" }} // Early trigger for better UX
         variants={containerVariants}
       >
-        {service?.map((curService, index) => {
-          const { _id, service, description, price, provider } = curService;
+        <motion.span variants={itemVariants}>
+          <h1>Services</h1>
+        </motion.span>
 
-          return (
-            <motion.li
-              key={_id}
-              className="card"
-              variants={itemVariants}
-              custom={index}
-              whileHover="hover"
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true, margin: "-50px" }} // Partial visibility triggers animation
-              layout // Smooth layout animations
-            >
-              <motion.figure layout>
-                <picture>
-                  {/* WebP format (modern browsers) */}
-                  <source
-                    srcSet="/Service.webp"
-                    type="image/webp"
-                    width="200"
-                  />
-                  {/* Fallback JPEG format (older browsers) */}
-                  <source srcSet="/Service.jpg" type="image/jpeg" width="200" />
-                  {/* Default Contact image with alt text and dimensions */}
-                  <img
-                    src="/Service.jpg"
-                    alt="Developer Image"
-                    width="200"
-                    loading="lazy" // Lazy loading for better performance
-                    decoding="async" // Async decoding for better rendering
-                  />
-                </picture>
-              </motion.figure>
-              <motion.figcaption layout>
-                <motion.h3 variants={itemVariants}>{service}</motion.h3>
-                <motion.p variants={itemVariants}>{description}</motion.p>
-                <motion.div className="card-badge" variants={itemVariants}>
-                  <p>{price}</p>
-                  <p>{provider}</p>
-                </motion.div>
-              </motion.figcaption>
-            </motion.li>
-          );
-        })}
-      </motion.article>
-    </motion.section>
+        <motion.article
+          className="grid grid-three-cols"
+          variants={containerVariants}
+        >
+          {service?.map((curService, index) => {
+            const { _id, service, description, price, provider } = curService;
+
+            return (
+              <motion.li
+                key={_id}
+                className="card"
+                variants={itemVariants}
+                custom={index}
+                whileHover="hover"
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true, margin: "-50px" }} // Partial visibility triggers animation
+                layout // Smooth layout animations
+              >
+                <motion.figure layout>
+                  <picture>
+                    {/* WebP format (modern browsers) */}
+                    <source
+                      srcSet="/Service.webp"
+                      type="image/webp"
+                      width="200"
+                    />
+                    {/* Fallback JPEG format (older browsers) */}
+                    <source
+                      srcSet="/Service.jpg"
+                      type="image/jpeg"
+                      width="200"
+                    />
+                    {/* Default Contact image with alt text and dimensions */}
+                    <img
+                      src="/Service.jpg"
+                      alt="Developer Image"
+                      width="200"
+                      loading="lazy" // Lazy loading for better performance
+                      decoding="async" // Async decoding for better rendering
+                    />
+                  </picture>
+                </motion.figure>
+                <motion.figcaption layout>
+                  <motion.h3 variants={itemVariants}>{service}</motion.h3>
+                  <motion.p variants={itemVariants}>{description}</motion.p>
+                  <motion.div className="card-badge" variants={itemVariants}>
+                    <p>{price}</p>
+                    <p>{provider}</p>
+                  </motion.div>
+                </motion.figcaption>
+              </motion.li>
+            );
+          })}
+        </motion.article>
+      </motion.section>
+    </>
   );
 };
 

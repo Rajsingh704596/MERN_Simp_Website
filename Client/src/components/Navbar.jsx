@@ -7,47 +7,48 @@ const Navbar = () => {
 
   return (
     // header
-    <header>
+    <header aria-label="header">
       <div className="container">
-        <div>
-          <NavLink to="/" className="logo-brand">
-            <img
-              src="./android-chrome-192x192.png"
-              alt="My logo"
-              width={30}
-              height={25}
-            />
-            Web Dev
-          </NavLink>
-        </div>
+        <NavLink to="/" className="logo-brand">
+          <img
+            src="./android-chrome-192x192.png"
+            alt="My logo"
+            aria-label="logo"
+            width={30}
+            height={25}
+          />
+          <h5>Web Dev</h5>
+        </NavLink>
+
         {/* Navigation link */}
-        <nav>
+        <nav aria-label="Main Navigation">
           <ul>
-            <NavLink to="/">
-              <li>Home</li>
-            </NavLink>
-            <NavLink to="/about">
-              <li>About</li>
-            </NavLink>
-            <NavLink to="/service">
-              <li>Service</li>
-            </NavLink>
-            <NavLink to="/contact">
-              <li>Contact</li>
-            </NavLink>
+            <li>
+              <NavLink to="/">Home</NavLink>
+            </li>
+            <li>
+              <NavLink to="/about">About</NavLink>
+            </li>
+            <li>
+              <NavLink to="/service">Service</NavLink>
+            </li>
+
+            <li>
+              <NavLink to="/contact">Contact</NavLink>
+            </li>
             {/* Ternary operator use to check if isLoggedIn true so show Logout link otherwise show Login and register link */}
             {isLoggedIn ? (
-              <NavLink to="/logout">
-                <li>logout</li>
-              </NavLink>
+              <li>
+                <NavLink to="/logout">logout</NavLink>
+              </li>
             ) : (
               <>
-                <NavLink to="/register">
-                  <li>Register</li>
-                </NavLink>
-                <NavLink to="/login">
-                  <li>Login</li>
-                </NavLink>
+                <li>
+                  <NavLink to="/register">Register</NavLink>
+                </li>
+                <li>
+                  <NavLink to="/login">Login</NavLink>
+                </li>
               </>
             )}
           </ul>

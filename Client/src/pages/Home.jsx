@@ -39,13 +39,27 @@ const Home = () => {
   ];
 
   return (
-    <motion.section
-      className="section-hero"
-      initial="hidden"
-      animate="visible"
-      variants={containerVariants}
-    >
-      <main>
+    <>
+      {/*  React 19 support meta tags directly in individual component, like title, meta, link tag */}
+      <title>Home Page | MERN React19 Site </title>
+      <meta name="description" content="web developer workflow" />
+      <meta name="keyword" content="homepage, my site , landing page" />
+      <link
+        rel="alternate"
+        hrefLang="en"
+        href="https://mern-simp-website.vercel.app"
+      />
+      {/* if it's support multi lang. when use i18n then use alternate*/}
+      <link rel="canonical" href="https://mern-simp-website.vercel.app" />
+      {/*original site lang. show by canonical */}
+
+      <motion.main
+        className="section-hero"
+        aria-label="landing page web developer workflow"
+        initial="hidden"
+        animate="visible"
+        variants={containerVariants}
+      >
         <div className="container grid grid-two-cols">
           {/* Content Section */}
           <motion.div className="hero-content" variants={containerVariants}>
@@ -120,31 +134,32 @@ const Home = () => {
             </motion.figcaption>
           </motion.figure>
         </div>
-      </main>
 
-      {/* Stats Section */}
-      <motion.section
-        className="section-analytics"
-        viewport={{ once: true, amount: 0.2 }}
-        initial="hidden"
-        whileInView="visible"
-        variants={containerVariants}
-      >
-        <div className="container grid grid-four-cols">
-          {stats.map((stat, index) => (
-            <motion.div
-              key={index}
-              className="div1"
-              variants={fadeUp}
-              whileHover={{ y: -3 }}
-            >
-              <motion.h2>{stat.value}</motion.h2>
-              <p>{stat.label}</p>
-            </motion.div>
-          ))}
-        </div>
-      </motion.section>
-    </motion.section>
+        {/* Stats Section */}
+        <motion.section
+          className="section-analytics"
+          aria-label="our client data"
+          viewport={{ once: true, amount: 0.2 }}
+          initial="hidden"
+          whileInView="visible"
+          variants={containerVariants}
+        >
+          <div className="container grid grid-four-cols">
+            {stats.map((stat, index) => (
+              <motion.div
+                key={index}
+                className="div1"
+                variants={fadeUp}
+                whileHover={{ y: -3 }}
+              >
+                <motion.h2>{stat.value}</motion.h2>
+                <p>{stat.label}</p>
+              </motion.div>
+            ))}
+          </div>
+        </motion.section>
+      </motion.main>
+    </>
   );
 };
 

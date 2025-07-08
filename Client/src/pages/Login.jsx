@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../store/auth";
 import { toast } from "react-toastify"; // toast work like alert
+import Seo from "../components/Seo/Seo";
 
 const Login = () => {
   const [userLog, setUserLog] = useState({
@@ -77,7 +78,9 @@ const Login = () => {
 
   return (
     <>
-      <section className="section-hero form">
+      <Seo title="LogIn page | MERN React19 Site" description="Login Form" />
+
+      <section className="section-hero form" aria-label="login form">
         <div className="grid grid-two-cols">
           {/* Image */}
           <div className="hero-image">

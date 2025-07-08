@@ -2,7 +2,11 @@ import { NavLink } from "react-router-dom";
 const Error = () => {
   return (
     <>
-      <section id="error-page">
+      <Seo
+        title="Error page | MERN React19 Site"
+        description="404 error page not found"
+      />
+      <section id="error-page" aria-label="error link not valid">
         <div className="content">
           <h2 className="header">404</h2>
           <h4>Sorry! Page not found</h4>

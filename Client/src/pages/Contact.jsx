@@ -61,7 +61,14 @@ const Contact = () => {
 
   return (
     <>
-      <section className="section-hero ">
+      {/* Meta tag for about page */}
+      <title>Contact us | MERN React19 Site </title>
+      <meta name="description" content="Contact Page" />
+      <meta name="keyword" content="Contact page, seo, meta" />
+      <meta name="author" content="Rock" />
+      <link rel="canonical" content="https://mern-simp-website.vercel.app" />
+
+      <section className="section-hero " aria-label="Contact Us">
         <div className=" grid grid-two-cols form">
           {/* Image */}
           <div className="hero-image">

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../store/auth";
 import { toast } from "react-toastify";
+import Seo from "../components/Seo/Seo";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -61,7 +62,12 @@ const Register = () => {
 
   return (
     <>
-      <section className="section-hero form">
+      <Seo
+        title="Register page | MERN React19 Site"
+        description="Register Form"
+      />
+
+      <section className="section-hero form" aria-label="register form">
         <div className="grid grid-two-cols">
           {/* Image */}
           <div className="hero-image">
